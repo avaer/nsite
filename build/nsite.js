@@ -1,3 +1,6 @@
+/* global self */
+/* eslint no-restricted-globals: ["off", "self"] */
+
 var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 function commonjsRequire () {
