@@ -16,6 +16,7 @@
   },
   "devDependencies": {},
   "scripts": {
+    "build": "rollup -c rollup.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
