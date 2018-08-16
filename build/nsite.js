@@ -1,7 +1,3 @@
-'use strict';
-
-var module = {};
-
 var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 function commonjsRequire () {
@@ -21410,8 +21406,4 @@ const nsite = (u, t) => {
 
 var nsite_1 = nsite;
 
-module.exports = nsite_1;
-
-if (typeof window !== 'undefined') {
-  window.nsite = module.exports;
-}
+export default nsite_1;

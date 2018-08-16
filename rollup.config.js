@@ -20,7 +20,7 @@ export default {
         // sourceMap: true,
         output: [
                 {
-                        format: 'cjs',
+                        format: 'es',
                         name: 'nsite',
                         file: 'build/nsite.js'
                 }
