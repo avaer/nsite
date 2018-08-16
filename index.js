@@ -1,5 +1,6 @@
 const events = require('events');
 const {EventEmitter} = events;
+const url = require('url');
 const parse5 = require('parse5');
 const jszip = require('jszip/dist/jszip.js');
 // const randomstring = require('randomstring');
