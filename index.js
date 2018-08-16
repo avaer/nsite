@@ -5,27 +5,8 @@ const parse5 = require('parse5');
 const jszip = require('jszip/dist/jszip.js');
 // const randomstring = require('randomstring');
 
-const packages = {};
-
 const g = typeof global !== 'undefined' ? global : window;
-if (typeof g.fetch === 'undefined') {
-  g.fetch = u => new Promise((accept, reject) => {
-    const {protocol} = url.parse(u);
-    const proxyReq = (protocol === 'https:' ? https : http).get(u, proxyRes => {
-      const bs = [];
-      proxyRes.on('data', d => {
-        bs.push(d);
-      });
-      proxyRes.on('end', () => {
-        accept(Buffer.concat(bs));
-      });
-    });
-    proxyReq.on('error', err => {
-      reject(err);
-    });
-    proxyReq.end();
-  });
-}
+
 const nsite = (u, t) => {
   const loader = new EventEmitter();
 
@@ -50,14 +31,10 @@ const nsite = (u, t) => {
           level: 9,
         },
       })
-        .then(d => {
-          packages[id] = d;
-          setTimeout(() => {
-            packages[id] = null;
-          }, 60 * 1000);
-
+        .then(data => {
           loader.emit('end', {
-            url: `https://exoc.webmr.io/package?id=${id}`,
+            id,
+            data,
           });
         })
         .catch(err => {
@@ -72,8 +49,8 @@ const nsite = (u, t) => {
   const parsedUrl = url.parse(u);
   const {protocol, host} = parsedUrl;
   const urlPrefix = protocol + '\/\/' + host + '/';
-  fetch(u)
-    .then(d => d.toString('utf8'))
+  g.fetch(u)
+    .then(res => res.text())
     .then(s => {
       zip.file('index.html', s, {
         base64: false,
@@ -93,7 +70,8 @@ const nsite = (u, t) => {
             total++;
             _checkDone();
 
-            fetch(su)
+            g.fetch(su)
+              .then(res => res.arrayBuffer())
               .then(d => {
                 const cleanUrl = su.indexOf(urlPrefix) === 0 ? su.slice(urlPrefix.length) : su;
                 zip.file(cleanUrl, d);

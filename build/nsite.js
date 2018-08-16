@@ -21301,25 +21301,12 @@ module.exports = ZStream;
 
 const {EventEmitter: EventEmitter$1} = events;
 
+
+
+// const randomstring = require('randomstring');
+
 const g = typeof commonjsGlobal !== 'undefined' ? commonjsGlobal : window;
-if (typeof g.fetch === 'undefined') {
-  g.fetch = u => new Promise((accept, reject) => {
-    const {protocol} = url.parse(u);
-    const proxyReq = (protocol === 'https:' ? https : http).get(u, proxyRes => {
-      const bs = [];
-      proxyRes.on('data', d => {
-        bs.push(d);
-      });
-      proxyRes.on('end', () => {
-        accept(Buffer.concat(bs));
-      });
-    });
-    proxyReq.on('error', err => {
-      reject(err);
-    });
-    proxyReq.end();
-  });
-}
+
 const nsite = (u, t) => {
   const loader = new EventEmitter$1();
 
@@ -21344,12 +21331,10 @@ const nsite = (u, t) => {
           level: 9,
         },
       })
-        .then(d => {
-          setTimeout(() => {
-          }, 60 * 1000);
-
+        .then(data => {
           loader.emit('end', {
-            url: `https://exoc.webmr.io/package?id=${id}`,
+            id,
+            data,
           });
         })
         .catch(err => {
@@ -21364,8 +21349,8 @@ const nsite = (u, t) => {
   const parsedUrl = url.parse(u);
   const {protocol, host} = parsedUrl;
   const urlPrefix = protocol + '\/\/' + host + '/';
-  fetch(u)
-    .then(d => d.toString('utf8'))
+  g.fetch(u)
+    .then(res => res.text())
     .then(s => {
       zip.file('index.html', s, {
         base64: false,
@@ -21385,7 +21370,8 @@ const nsite = (u, t) => {
             total++;
             _checkDone();
 
-            fetch(su)
+            g.fetch(su)
+              .then(res => res.arrayBuffer())
               .then(d => {
                 const cleanUrl = su.indexOf(urlPrefix) === 0 ? su.slice(urlPrefix.length) : su;
                 zip.file(cleanUrl, d);
