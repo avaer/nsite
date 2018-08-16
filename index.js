@@ -6,9 +6,9 @@ const jszip = require('jszip/dist/jszip.js');
 
 const packages = {};
 
-const global = typeof global !== 'undefined' ? global : window;
-if (typeof global.fetch === 'undefined') {
-  global.fetch = u => new Promise((accept, reject) => {
+const g = typeof global !== 'undefined' ? global : window;
+if (typeof g.fetch === 'undefined') {
+  g.fetch = u => new Promise((accept, reject) => {
     const {protocol} = url.parse(u);
     const proxyReq = (protocol === 'https:' ? https : http).get(u, proxyRes => {
       const bs = [];
