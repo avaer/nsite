@@ -4,8 +4,6 @@ const parse5 = require('parse5');
 const jszip = require('jszip/dist/jszip.js');
 // const randomstring = require('randomstring');
 
-const PORT = process.env['PORT'] || 9000;
-
 const packages = {};
 
 const global = typeof global !== 'undefined' ? global : window;
