@@ -19930,12 +19930,11 @@ module.exports = ZStream;
 });
 });
 
-var nsite_1 = createCommonjsModule(function (module) {
-const {EventEmitter} = events;
+const {EventEmitter: EventEmitter$1} = events;
 
-const global = typeof global !== 'undefined' ? global : window;
-if (typeof global.fetch === 'undefined') {
-  global.fetch = u => new Promise((accept, reject) => {
+const g = typeof commonjsGlobal !== 'undefined' ? commonjsGlobal : window;
+if (typeof g.fetch === 'undefined') {
+  g.fetch = u => new Promise((accept, reject) => {
     const {protocol} = url.parse(u);
     const proxyReq = (protocol === 'https:' ? https : http).get(u, proxyRes => {
       const bs = [];
@@ -19953,7 +19952,7 @@ if (typeof global.fetch === 'undefined') {
   });
 }
 const nsite = (u, t) => {
-  const loader = new EventEmitter();
+  const loader = new EventEmitter$1();
 
   // const id = randomstring.generate(7);
   const id = Math.random().toString(36).substring(7);
@@ -20054,7 +20053,6 @@ const nsite = (u, t) => {
   return loader;
 };
 
-module.export = nsite;
-});
+var nsite_1 = nsite;
 
 module.exports = nsite_1;
