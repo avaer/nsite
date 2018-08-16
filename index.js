@@ -129,4 +129,4 @@ const nsite = (u, t) => {
   return loader;
 };
 
-module.export = nsite;
+module.exports = nsite;
