@@ -19933,11 +19933,6 @@ module.exports = ZStream;
 var nsite_1 = createCommonjsModule(function (module) {
 const {EventEmitter} = events;
 
-
-// const randomstring = require('randomstring');
-
-const PORT = process.env['PORT'] || 9000;
-
 const global = typeof global !== 'undefined' ? global : window;
 if (typeof global.fetch === 'undefined') {
   global.fetch = u => new Promise((accept, reject) => {
