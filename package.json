@@ -1,6 +1,6 @@
 {
   "name": "nsite",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "JS site downloader",
   "main": "index.js",
   "dependencies": {
